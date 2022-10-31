@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Tarefas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+
+  <div class="container-fluid lista-tarefas">
+    <header class="header">
+
+      <div class="row mt-3">
+
+        <div class="col-10">
+          <h3>To-Do-List</h3>
+          <span id="relogio"></span>
+        </div>
+
+        <div class="col-2">
+          <!--button type="button" class="btn btn-success">
+          </button-->
+          <button><i class="bx bx-plus" data-bs-toggle="modal" data-bs-target="#modal"></i></button>
+
+        </div>
+
+      </div>
+
+    </header>
+
+    <main>
+
+      <div class="to-do">
+        <div class="header">
+          <p>To-Do List</p>
+          <!--button><i class='bx bxs-trash-alt'></i></button-->
+
+        </div>
+        <hr />
+        <br />
+        <div class="divInsert">
+          <input class="textInsert" type="text" />
+          <button><i class='bx bx-plus'></i></button>
+        </div>
+        <ul></ul>
+      </div>
+
+
+      <div class="modal fade" id="modal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <header class="modal-header">
+              <h2 id="modal-titulo">Nova Tarefa</h2>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </header>
+            <div class="modal-body">
+              <form id="form">
+                <input type="hidden" id="id" />
+                <div class="mb-3">
+                  <label for="input-tarefa" class="form-label">Tarefa</label>
+                  <input type="text" id="input-tarefa" class="form-control" placeholder="Insira a tarefa" required />
+                </div>
+                <div class="mb-3">
+                  <label for="titulo" class="form-label">Categoria</label>
+                  <input type="text" id="categoria" class="form-control" placeholder="Insira a categoria" required />
+                </div>
+                <div class="mb-3">
+                  <label for="data-hora" class="form-label">Hora</label>
+                  <!--input type="datetime-local" id="data-ho.ra" class="form-control" placeholder="Insira a data e a hora"
+                                required /-->
+                  <input type="time" id="time" class="form-control" placeholder="Insira a data e a hora" required />
+                </div>
+              </form>
+            </div>
+            <footer class="modal-footer">
+              <button id="salvar" class="btn btn-success" data-bs-dismiss="modal" onclick="cadastrarTarefa()">
+                Salvar
+              </button>
+              <button type="button" class="btn btn-warning" data-bs-dismiss="modal" aria-label="Close">
+                Cancelar
+              </button>
+            </footer>
+          </div>
+        </div>
+      </div>
+
+
+
+    </main>
+
+
+  </div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>
