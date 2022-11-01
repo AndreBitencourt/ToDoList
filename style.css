@@ -132,3 +132,13 @@ li {
     font-size: 30px;
     color: red;  
 }
+
+#modalcategoria{   
+  background-color: #fff; 
+  float: center;
+  position: absolute;
+  margin: 0;  
+  width: 95%;  
+  padding: 0px;
+  z-index: 999;
+}
