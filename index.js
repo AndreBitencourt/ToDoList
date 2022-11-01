@@ -82,7 +82,12 @@ function updateDB() {
 
 function loadItens() {
   ul.innerHTML = "";
-  itensDB = JSON.parse(localStorage.getItem('todolist')) ?? []
+  itensDB = JSON.parse(localStorage.getItem('todolist')) ?? [];
+  if(itensDB.length > 0){
+    document.getElementById('footer-trash').style.display = 'block';
+  }else{
+    document.getElementById('footer-trash').style.display = 'none';
+  }
   itensDB.forEach((item, i) => {
     insertItemTela(item.item, item.categoria, item.hora, item.status, i);
   })

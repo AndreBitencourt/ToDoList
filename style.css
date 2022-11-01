@@ -23,7 +23,7 @@ p {
 ul {
   display: flex;
   flex-direction: column-reverse;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
 }
 
 .header button {
@@ -33,7 +33,7 @@ ul {
 } 
 
 .header i {
-  font-size: 22px;
+  font-size: 30px;
 } 
 
 .to-do {
@@ -127,6 +127,8 @@ li {
   }
 }
 
-.footer button{
-  
+.footer button{    
+  float: right;
+    font-size: 30px;
+    color: red;  
 }
