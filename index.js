@@ -13,6 +13,9 @@ const btnAbreModal = document.getElementById('addTarefa');
 btnAbreModal.onclick = () => {
   document.getElementById('modal-titulo').innerHTML = 'Nova Tarefa';
   document.getElementById('salvar').innerHTML = 'Salvar';
+  document.querySelector('.txtInputTarefa input').value = '';
+  document.querySelector('.txtInputCategoria input').value = '';
+  document.querySelector('.txtInputHora input').value = '';
   edita = false;
 }
 
