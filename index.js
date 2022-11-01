@@ -134,7 +134,7 @@ function updateDB() {
 // }
 
 
-function loadItens() {
+function loadItens() { //line-tho AQUIIIIIIIIIIIII
   ul.innerHTML = "";
   itensDB = JSON.parse(localStorage.getItem('todolist')) ?? [];
   if (itensDB.length > 0) {
