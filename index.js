@@ -24,7 +24,7 @@ btnAbreModal.onclick = () => {
 const btnInsert = document.querySelector('.modal-footer button');
 
 //Delete All - Lê dentro da classe header o atributo button
-//const btnDeleteAll = document.querySelector('.header button');
+const btnDeleteAll = document.querySelector('.footer button');
 
 //Leio todos as listas (atentar para que se usar outra lista ordenada agrupar por classe ou dentro de algum id)
 const ul = document.querySelector('ul');
@@ -35,10 +35,10 @@ var itensDB = []
 
 //Ação de deletar todos os registros
 //O delete apenas registra o valor vazio no array
-/*btnDeleteAll.onclick = () => {
+btnDeleteAll.onclick = () => {
   itensDB = []
   updateDB();
-}*/
+}
 
 //Ação ao pressionar tecla. apenas tecla enter está configurada
 texto.addEventListener('keypress', e => {

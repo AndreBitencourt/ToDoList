@@ -14,42 +14,34 @@
 
 <body>
 
-  <div class="container-fluid lista-tarefas">
-    <header class="header">
+  <div class="container lista-tarefas">
 
+    <header class="header">
       <div class="row mt-3">
 
-        <div class="col-10">
+        <div class="col-10 text-center">
 
+          <h3>To-Do-List</h3>
+          <span id="relogio" class="h-6 text-center"></span>
+        </div>
+        <div class="col-2">
+          <span class="btnAdd">
+            <!--button type="button" class="btn btn-success">
+            </button-->
+            <button id="addTarefa"><i class="bx bx-plus" data-bs-toggle="modal" data-bs-target="#modal"></i></button>
+          </span>
         </div>
 
-        <div class="col-2 btnAdd">
-          <!--button type="button" class="btn btn-success">
-          </button-->
-          <button id="addTarefa"><i class="bx bx-plus" data-bs-toggle="modal" data-bs-target="#modal"></i></button>
 
-        </div>
 
       </div>
 
     </header>
+    <hr />
 
     <main>
-
-      <div class="to-do">
-        <div class="header">
-          <p class="h3">To-Do-List</p>
-          <span id="relogio" class="h-6 text-center"></span>
-        </div>
-        <hr />
-        <br />
-
-
-
-        <ul></ul>
-      </div>
-
-
+      
+      <ul></ul>
       <div class="modal fade" id="modal">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -90,50 +82,13 @@
         </div>
       </div>
 
-
-      <div class="modal fade" id="modal-edit">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <header class="modal-header">
-              <h2 id="modal-titulo">Nova Tarefa</h2>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </header>
-            <div class="modal-body">
-              <form id="form">
-                <input type="hidden" id="id" />
-                <div class="mb-3 divInsert">
-                  <label for="input-tarefa" class="form-label">Tarefa</label>
-                  <input type="text" id="input-tarefa" class="form-control textInsert" placeholder="Insira a tarefa"
-                    required />
-                  <button><i class='bx bx-plus'></i></button>
-                </div>
-                <div class="mb-3">
-                  <label for="titulo" class="form-label">Categoria</label>
-                  <input type="text" id="categoria" class="form-control" placeholder="Insira a categoria" required />
-                </div>
-                <div class="mb-3">
-                  <label for="data-hora" class="form-label">Hora</label>
-                  <!--input type="datetime-local" id="data-ho.ra" class="form-control" placeholder="Insira a data e a hora"
-                                required /-->
-                  <input type="time" id="time" class="form-control" placeholder="Insira a data e a hora" required />
-                </div>
-              </form>
-            </div>
-            <footer class="modal-footer">
-              <button id="salvar" class="btn btn-success" data-bs-dismiss="modal" onclick="cadastrarTarefa()">
-                Salvar
-              </button>
-              <button type="button" class="btn btn-warning" data-bs-dismiss="modal" aria-label="Close">
-                Cancelar
-              </button>
-            </footer>
-          </div>
-        </div>
-      </div>
-
-
     </main>
 
+    <footer class="">
+      <div class="container footer text-center">
+        <button><i class='bx bxs-trash-alt'></i></button>
+      </div>
+    </footer>
 
   </div>
 
