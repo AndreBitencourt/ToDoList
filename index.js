@@ -48,7 +48,7 @@ btnDeleteAll.onclick = () => {
 }
 
 
-btnEditCategorias.onclick = () => {
+btnEditCategorias.onclick = () => {  
   //e.preventDefault();
   //alert('Botão de edição de categoria pressionado');
   document.getElementById("modalcategoria").style.display = "block";
@@ -65,14 +65,20 @@ function closeCategorias() {
   document.getElementById("salvar").style.display = "block";
   document.getElementById("close-modal-tarefa").style.display = "block";
   carregaItensCategorias();
+  
 }
 
 //Ação ao pressionar tecla. apenas tecla enter está configurada
 texto.addEventListener('keypress', e => {
-  if (e.key == 'Enter' && texto.value != '') {
-    setItemDB()
-  }
-})
+      if (e.key == 'Enter' && texto.value != '') {
+      setItemDB();
+    }     
+});
+
+
+
+
+
 
 
 //Ação ao clicar botão btnInsert
@@ -221,6 +227,8 @@ const btnInsertCategoria = document.querySelector('.divInsertCategoria button')
 //const btnDeleteAllCategoria = document.querySelector('.header button')
 const ol = document.querySelector('ol');
 
+
+
 var itensDBCategorias = []
 
 // btnDeleteAllCategoria.onclick = () => {
@@ -228,11 +236,11 @@ var itensDBCategorias = []
 //   updateDBCategorias()
 // }
 
-// textoCategoria.addEventListener('keypress', e => {
-//   if (e.key == 'Enter' && textoCategoria.value != '') {
-//     setItemDBCategorias()
-//   }
-// })
+textoCategoria.addEventListener('keypress', e => {
+  if (e.key == 'Enter' && textoCategoria.value != '') {
+    setItemDBCategorias()
+  }
+})
 
 btnInsertCategoria.onclick = () => {
   if (textoCategoria.value != '') {
