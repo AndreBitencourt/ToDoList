@@ -69,14 +69,20 @@ function closeCategorias() {
   document.getElementById("salvar").style.display = "block";
   document.getElementById("close-modal-tarefa").style.display = "block";
   carregaItensCategorias();
+  
 }
 
 //Ação ao pressionar tecla. apenas tecla enter está configurada
 texto.addEventListener('keypress', e => {
-  if (e.key == 'Enter' && texto.value != '') {
-    setItemDB()
-  }
-})
+      if (e.key == 'Enter' && texto.value != '') {
+      setItemDB();
+    }     
+});
+
+
+
+
+
 
 
 //Ação ao clicar botão btnInsert
@@ -230,6 +236,8 @@ const btnInsertCategoria = document.querySelector('.divInsertCategoria button')
 //const btnDeleteAllCategoria = document.querySelector('.header button')
 const ol = document.querySelector('ol');
 
+
+
 var itensDBCategorias = []
 
 // btnDeleteAllCategoria.onclick = () => {
@@ -237,11 +245,11 @@ var itensDBCategorias = []
 //   updateDBCategorias()
 // }
 
-// textoCategoria.addEventListener('keypress', e => {
-//   if (e.key == 'Enter' && textoCategoria.value != '') {
-//     setItemDBCategorias()
-//   }
-// })
+textoCategoria.addEventListener('keypress', e => {
+  if (e.key == 'Enter' && textoCategoria.value != '') {
+    setItemDBCategorias()
+  }
+})
 
 btnInsertCategoria.onclick = () => {
   if (textoCategoria.value != '') {
@@ -333,3 +341,15 @@ function limparSelect() {
 
 
 carregaItensCategorias();
+
+function mudaCor(){
+  const element = document.querySelector('body');
+  if(element.classList.contains('bg-dark')){
+    element.classList.remove('bg-dark');
+    element.classList.remove('text-white');
+  }else{
+    element.classList.add('bg-dark');
+    element.classList.add('text-white');
+  }  
+}
+
