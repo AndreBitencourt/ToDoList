@@ -73,7 +73,7 @@ function closeCategorias() {
 }
 
 //Ação ao pressionar tecla. apenas tecla enter está configurada
-texto.addEventListener('keypress', e => {
+hora.addEventListener('keypress', e => {
       if (e.key == 'Enter' && texto.value != '') {
       setItemDB();
     }     
