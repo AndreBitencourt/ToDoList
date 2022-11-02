@@ -1,5 +1,5 @@
 //Crio uma constante que lê os seletores input
-//Tarefa
+//Atividade
 const texto = document.querySelector('.txtInputTarefa input');
 //Categoria
 const categoria = document.querySelector('.txtInputCategoria select');
@@ -48,9 +48,7 @@ btnDeleteAll.onclick = () => {
 }
 
 
-btnEditCategorias.onclick = () => {
-  document.getElementById("form").style.display = "none";
-
+btnEditCategorias.onclick = () => {  
   //e.preventDefault();
   //alert('Botão de edição de categoria pressionado');
   document.getElementById("modalcategoria").style.display = "block";
@@ -62,8 +60,6 @@ btnEditCategorias.onclick = () => {
 }
 
 function closeCategorias() {
-  document.getElementById("form").style.display = "block";
-
   document.getElementById("modalcategoria").style.display = "none";
   //Exibo o botão salvar
   document.getElementById("salvar").style.display = "block";
@@ -88,16 +84,13 @@ hora.addEventListener('keypress', e => {
 //Ação ao clicar botão btnInsert
 btnInsert.onclick = () => {
   //Analiso se o conteúdo do botão é diferente de vazio
-  if (texto.value != '' && categoria.value != '' && hora.value != '') {
+  if (texto.value != '') {
     setItemDB();//Seta itemDB
     //Verifico se é update, caso seja apago o item anterior    
     if (edita) {
       const i = document.getElementById('id-edita').value;
       removeItem(i);
     }
-  } else {
-    alert('Formulário preenchido incorretamente. Tente novamente.');
-    return;
   }
   //Condiçoes de categorias
   // if (categoria.value != '') {
@@ -117,13 +110,11 @@ function setItemDB() {
 }
 
 
+
+
 //Atualizo Local Storage com os dados armazenados no itensDB
 function updateDB() {
-  const ordenado = itensDB.sort(function(a, b) {
-    return a.hora.toString().localeCompare(b.hora.toString());
-  });
-
-  localStorage.setItem('todolist', JSON.stringify(ordenado))
+  localStorage.setItem('todolist', JSON.stringify(itensDB))
   loadItens();
 }
 
@@ -156,7 +147,7 @@ function insertItemTela(text, categoria, hora, status, i) {
     <div class="divLi">
       <input type="checkbox" ${status} data-i=${i} onchange="done(this, ${i});" />
       <span data-si=${i}>${text}</span>
-      <span style="text-transform: capitalize">${categoria}</span>
+      <span>${categoria}</span>
       <span>${hora}</span>
       <button onclick="editaItem(${i})" data-bs-toggle="modal" data-bs-target="#modal" data-i=${i}><i class='bx bx-edit'></i></button>
       <button onclick="removeItem(${i})" data-i=${i}><i class='bx bx-trash'></i></button>
