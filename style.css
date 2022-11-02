@@ -67,9 +67,11 @@ button {
   outline: none;
 }
 
-.bx-plus {
+.bx-plus,
+.bx-check-circle {
   font-size: 30px;
   margin-left: 10px;
+  margin-top: 10px;
   background-color: rgb(139, 14, 223);
   border-radius: 50%;
   padding: 5px;
@@ -100,7 +102,12 @@ button {
 /*Tamanho dos botões*/
 .divLi i {
   font-size: 25px;
-  color: brown;
+  color: rgb(139, 14, 223);
+}
+
+.btn-primary, .btn-success {
+  background-color: rgb(139, 14, 223);
+  border-color: rgb(139, 14, 223);;
 }
 
 
@@ -135,15 +142,13 @@ li {
 .footer button{    
   float: right;
     font-size: 30px;
-    color: red;  
+    color: rgb(139, 14, 223);  
 }
 
 #modalcategoria{   
   background-color: #fff; 
   float: center;
-  position: absolute;
-  margin: 0;  
-  width: 95%;  
+  margin: 0;
   padding: 0px;
   z-index: 999;
 }
