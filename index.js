@@ -6,6 +6,8 @@ const categoria = document.querySelector('.txtInputCategoria select');
 //hora
 const hora = document.querySelector('.txtInputHora input');
 
+const modalTarefas = new bootstrap.Modal(document.getElementById('modal'));
+
 let edita = false;
 
 //Pego o clique no + para editar texto do modal
@@ -43,8 +45,10 @@ var itensDB = []
 //Ação de deletar todos os registros
 //O delete apenas registra o valor vazio no array
 btnDeleteAll.onclick = () => {
-  itensDB = []
-  updateDB();
+  if(confirm('Tem certeza que deseja limpar suas tarefas?')) {
+    itensDB = []
+    updateDB();
+  }
 }
 
 
@@ -95,14 +99,20 @@ btnInsert.onclick = () => {
       const i = document.getElementById('id-edita').value;
       removeItem(i);
     }
+    
+    texto.style.borderColor = '#ced4da';
+    categoria.style.borderColor = '#ced4da';
+    hora.style.borderColor = '#ced4da';
+
+    modalTarefas.toggle();
   } else {
+    texto.style.borderColor = (texto.value == '') ? '#dc3545' : '#ced4da';
+    categoria.style.borderColor = (categoria.value == '') ? '#dc3545' : '#ced4da';
+    hora.style.borderColor = (hora.value == '') ? '#dc3545' : '#ced4da';
+
     alert('Formulário preenchido incorretamente. Tente novamente.');
     return;
   }
-  //Condiçoes de categorias
-  // if (categoria.value != '') {
-  //   setItemCategoria();
-  // }
 }
 
 //Inserir ítem no LS
