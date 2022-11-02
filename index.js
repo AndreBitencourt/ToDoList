@@ -332,3 +332,15 @@ function limparSelect() {
 
 
 carregaItensCategorias();
+
+function mudaCor(){
+  const element = document.querySelector('body');
+  if(element.classList.contains('bg-dark')){
+    element.classList.remove('bg-dark');
+    element.classList.remove('text-white');
+  }else{
+    element.classList.add('bg-dark');
+    element.classList.add('text-white');
+  }  
+}
+
