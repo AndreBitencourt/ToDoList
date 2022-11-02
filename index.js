@@ -152,9 +152,9 @@ function insertItemTela(text, categoria, hora, status, i) {
 
   //Linha riscada - Atividade Concluída
   if (status) {
-    document.querySelector(`[data-si="${i}"]`).classList.add('line-through')
+    document.querySelector(`[data-si="${i}"]`).classList.add('line-through');
   } else {
-    document.querySelector(`[data-si="${i}"]`).classList.remove('line-through')
+    document.querySelector(`[data-si="${i}"]`).classList.remove('line-through');
   }
 
   texto.value = '';
@@ -172,8 +172,8 @@ function done(chk, i) {
 }
 
 function removeItem(i) {
-  itensDB.splice(i, 1)//Alterar conteúdo do array e reordenar o mesmo
-  updateDB()
+  itensDB.splice(i, 1);//Alterar conteúdo do array e reordenar o mesmo
+  updateDB();
 }
 
 function editaItem(i) {
