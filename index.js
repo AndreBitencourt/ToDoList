@@ -343,15 +343,33 @@ function limparSelect() {
 
 carregaItensCategorias();
 
+const corFundo = localStorage.getItem('back');
+
+if (corFundo) {
+  ativaCor(corFundo);
+}
+
 function mudaCor() {
   const element = document.querySelector('body');
+  let color;
   if (element.classList.contains('bg-dark')) {
-    element.classList.remove('bg-dark');
-    element.classList.remove('text-white');
+    color = 'white';
   } else {
+    color = 'black';
+  }
+  localStorage.setItem('back', color);
+  ativaCor(color);
+}
+
+function ativaCor(cor) {
+  const element = document.querySelector('body');
+  if (cor === 'black') {
+    console.log(cor);
     element.classList.add('bg-dark');
     element.classList.add('text-white');
+  } else {
+    element.classList.remove('bg-dark');
+    element.classList.remove('text-white');
   }
-  updateDB();
 }
 
