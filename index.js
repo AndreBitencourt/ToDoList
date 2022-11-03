@@ -88,7 +88,7 @@ hora.addEventListener('keypress', e => {
 //Ação ao clicar botão btnInsert
 btnInsert.onclick = () => {
   //Analiso se o conteúdo do botão é diferente de vazio
-  if (texto.value != '') {
+  if (texto.value != '' && categoria.value != '' && hora.value != '') {
     setItemDB();//Seta itemDB
     //Verifico se é update, caso seja apago o item anterior    
     if (edita) {
