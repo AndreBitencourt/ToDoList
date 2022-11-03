@@ -109,6 +109,7 @@ button {
   border-color: rgb(139, 14, 223);;
 }
 
+
 li {
   margin-left: -30px;
   list-style-type: none;  
@@ -131,7 +132,7 @@ li {
     font-size: 30px;
     padding: 0px;
   }
- 
+
   p {
     font-size: x-large;
   }
@@ -158,5 +159,10 @@ li {
 
 
 h2{
+  color: black;
+}
+
+
+.text-black{
   color: black;
 }

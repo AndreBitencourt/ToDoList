@@ -1,15 +1,18 @@
 //Crio uma constante que lê os seletores input
-//Tarefa
-const texto = document.querySelector('.txtInputTarefa input');
+//Atividade
+let texto = document.querySelector('.txtInputTarefa input');
 //Categoria
-const categoria = document.querySelector('.txtInputCategoria select');
+let categoria = document.querySelector('.txtInputCategoria select');
 //hora
-const hora = document.querySelector('.txtInputHora input');
+let hora = document.querySelector('.txtInputHora input');
+
+let modalTarefas = new bootstrap.Modal(document.getElementById('modal'));
 
 let edita = false;
 
 //Pego o clique no + para editar texto do modal
 const btnAbreModal = document.getElementById('addTarefa');
+
 btnAbreModal.onclick = () => {
   document.getElementById('modal-titulo').innerHTML = 'Nova Tarefa';
   document.getElementById('salvar').innerHTML = 'Salvar';
@@ -29,8 +32,6 @@ const btnDeleteAll = document.querySelector('.footer button');
 //Btn Edição de Categorias
 const btnEditCategorias = document.querySelector('.txtInputCategoria span');
 
-
-
 //Leio todos as listas (atentar para que se usar outra lista ordenada agrupar por classe ou dentro de algum id)
 const ul = document.querySelector('ul');
 
@@ -39,70 +40,71 @@ const ul = document.querySelector('ul');
 var itensDB = []
 
 
-
 //Ação de deletar todos os registros
 //O delete apenas registra o valor vazio no array
 btnDeleteAll.onclick = () => {
-  itensDB = []
-  updateDB();
+  if (confirm('Tem certeza que deseja limpar suas tarefas?')) {
+    itensDB = []
+    updateDB();
+  }
 }
 
-
 btnEditCategorias.onclick = () => {
-  document.getElementById("form").style.display = "none";
-
   //e.preventDefault();
   //alert('Botão de edição de categoria pressionado');
   document.getElementById("modalcategoria").style.display = "block";
   //Oculto o botão salvar e o close modal tarefas
   document.getElementById("salvar").style.display = "none";
   document.getElementById("close-modal-tarefa").style.display = "none";
+  document.getElementById("form").style.display = "none";  
   //Carrego as categorias
   loadItensCategorias();
 }
 
 function closeCategorias() {
-  document.getElementById("form").style.display = "block";
-
   document.getElementById("modalcategoria").style.display = "none";
+  document.getElementById("form").style.display = "block";
   //Exibo o botão salvar
   document.getElementById("salvar").style.display = "block";
   document.getElementById("close-modal-tarefa").style.display = "block";
+
+
   carregaItensCategorias();
-  
+
 }
 
 //Ação ao pressionar tecla. apenas tecla enter está configurada
-texto.addEventListener('keypress', e => {
-      if (e.key == 'Enter' && texto.value != '') {
-      setItemDB();
-    }     
+hora.addEventListener('keypress', e => {
+  if (e.key == 'Enter' && texto.value != '') {
+    if (edita) {
+      const i = document.getElementById('id-edita').value;
+      removeItem(i);
+    }
+    setItemDB();
+  }
 });
-
-
-
-
-
-
 
 //Ação ao clicar botão btnInsert
 btnInsert.onclick = () => {
   //Analiso se o conteúdo do botão é diferente de vazio
   if (texto.value != '' && categoria.value != '' && hora.value != '') {
-    setItemDB();//Seta itemDB
     //Verifico se é update, caso seja apago o item anterior    
     if (edita) {
       const i = document.getElementById('id-edita').value;
       removeItem(i);
     }
+    setItemDB();//Seta itemDB
+    texto.style.borderColor = '#ced4da';
+    categoria.style.borderColor = '#ced4da';
+    hora.style.borderColor = '#ced4da';
+    modalTarefas.toggle();
   } else {
-    alert('Formulário preenchido incorretamente. Tente novamente.');
+    texto.style.borderColor = (texto.value == '') ? '#dc3545' : '#ced4da';
+    categoria.style.borderColor = (categoria.value == '') ? '#dc3545' : '#ced4da';
+    hora.style.borderColor = (hora.value == '') ? '#dc3545' : '#ced4da';
+    //alert('Formulário preenchido incorretamente. Tente novamente.');
     return;
   }
-  //Condiçoes de categorias
-  // if (categoria.value != '') {
-  //   setItemCategoria();
-  // }
 }
 
 //Inserir ítem no LS
@@ -112,18 +114,21 @@ function setItemDB() {
     return
   }
   //Adiciona um ítem ao array  
-  itensDB.push({ 'item': texto.value, 'categoria': categoria.value, hora: hora.value, 'status': '' })
+  itensDB.push({'item': texto.value, 'categoria': categoria.value, hora: hora.value, 'status': '' });
+  console.log('Tarefa '+texto.value);
+  //console.log(texto.value);
   updateDB();
 }
 
-
 //Atualizo Local Storage com os dados armazenados no itensDB
 function updateDB() {
-  const ordenado = itensDB.sort(function(a, b) {
-    return a.hora.toString().localeCompare(b.hora.toString());
+  itensDB.sort((a, b) => {
+    const horaA = (a.hora ?? '00:00').toString();
+    const horaB = (b.hora ?? '00:00').toString();
+    return horaA.localeCompare(horaB);
   });
-
-  localStorage.setItem('todolist', JSON.stringify(ordenado))
+  //console.log(itensDB);
+  localStorage.setItem('todolist', JSON.stringify(itensDB))
   loadItens();
 }
 
@@ -153,10 +158,10 @@ function insertItemTela(text, categoria, hora, status, i) {
   const li = document.createElement('li');
 
   li.innerHTML = `
-    <div class="divLi">
+    <div class="divLi text-black" id="linha-${i}">
       <input type="checkbox" ${status} data-i=${i} onchange="done(this, ${i});" />
       <span data-si=${i}>${text}</span>
-      <span style="text-transform: capitalize">${categoria}</span>
+      <span>${categoria}</span>
       <span>${hora}</span>
       <button onclick="editaItem(${i})" data-bs-toggle="modal" data-bs-target="#modal" data-i=${i}><i class='bx bx-edit'></i></button>
       <button onclick="removeItem(${i})" data-i=${i}><i class='bx bx-trash'></i></button>
@@ -168,11 +173,12 @@ function insertItemTela(text, categoria, hora, status, i) {
   //Linha riscada - Atividade Concluída
   if (status) {
     document.querySelector(`[data-si="${i}"]`).classList.add('line-through');
+    document.getElementById(`linha-${i}`).classList.add('line-through');
   } else {
     document.querySelector(`[data-si="${i}"]`).classList.remove('line-through');
+    document.getElementById(`linha-${i}`).classList.remove('line-through');
   }
-
-  texto.value = '';
+  //texto.value = '';
 }
 
 function done(chk, i) {
@@ -182,7 +188,6 @@ function done(chk, i) {
   } else {
     itensDB[i].status = ''
   }
-
   updateDB();
 }
 
@@ -235,7 +240,6 @@ const textoCategoria = document.querySelector('.txtCadastroCategoria input')
 const btnInsertCategoria = document.querySelector('.divInsertCategoria button')
 //const btnDeleteAllCategoria = document.querySelector('.header button')
 const ol = document.querySelector('ol');
-
 
 
 var itensDBCategorias = []
@@ -326,7 +330,7 @@ function carregaItensCategorias() {
   itensCategorias = JSON.parse(localStorage.getItem('categorias')) ?? []
   itensCategorias.forEach((itensCategorias) => {
     //geraSelectCategorias(itensCategorias.item); 
-    option = new Option(itensCategorias.item, itensCategorias.item.toLowerCase());
+    option = new Option(itensCategorias.item, itensCategorias.item.toUpperCase());
     selectCategorias.options[selectCategorias.options.length] = option;
   })
 
@@ -335,21 +339,40 @@ function carregaItensCategorias() {
 function limparSelect() {
   // obter o elemento select
   var elem = document.getElementById("categoria");
-  // excluir todas as opções
+  // excluir todas as opções exceto a informação para seleção
   elem.options.length = 1;
 }
 
 
 carregaItensCategorias();
 
-function mudaCor(){
+const corFundo = localStorage.getItem('back');
+
+if (corFundo) {
+  ativaCor(corFundo);
+}
+
+function mudaCor() {
   const element = document.querySelector('body');
-  if(element.classList.contains('bg-dark')){
-    element.classList.remove('bg-dark');
-    element.classList.remove('text-white');
-  }else{
+  let color;
+  if (element.classList.contains('bg-dark')) {
+    color = 'white';
+  } else {
+    color = 'black';
+  }
+  localStorage.setItem('back', color);
+  ativaCor(color);
+}
+
+function ativaCor(cor) {
+  const element = document.querySelector('body');
+  if (cor === 'black') {
+    console.log(cor);
     element.classList.add('bg-dark');
     element.classList.add('text-white');
-  }  
+  } else {
+    element.classList.remove('bg-dark');
+    element.classList.remove('text-white');
+  }
 }
 
