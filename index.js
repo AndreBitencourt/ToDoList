@@ -1,17 +1,18 @@
 //Crio uma constante que lê os seletores input
 //Atividade
-const texto = document.querySelector('.txtInputTarefa input');
+let texto = document.querySelector('.txtInputTarefa input');
 //Categoria
-const categoria = document.querySelector('.txtInputCategoria select');
+let categoria = document.querySelector('.txtInputCategoria select');
 //hora
-const hora = document.querySelector('.txtInputHora input');
+let hora = document.querySelector('.txtInputHora input');
 
-const modalTarefas = new bootstrap.Modal(document.getElementById('modal'));
+let modalTarefas = new bootstrap.Modal(document.getElementById('modal'));
 
 let edita = false;
 
 //Pego o clique no + para editar texto do modal
 const btnAbreModal = document.getElementById('addTarefa');
+
 btnAbreModal.onclick = () => {
   document.getElementById('modal-titulo').innerHTML = 'Nova Tarefa';
   document.getElementById('salvar').innerHTML = 'Salvar';
@@ -31,8 +32,6 @@ const btnDeleteAll = document.querySelector('.footer button');
 //Btn Edição de Categorias
 const btnEditCategorias = document.querySelector('.txtInputCategoria span');
 
-
-
 //Leio todos as listas (atentar para que se usar outra lista ordenada agrupar por classe ou dentro de algum id)
 const ul = document.querySelector('ul');
 
@@ -45,14 +44,14 @@ var itensDB = []
 //Ação de deletar todos os registros
 //O delete apenas registra o valor vazio no array
 btnDeleteAll.onclick = () => {
-  if(confirm('Tem certeza que deseja limpar suas tarefas?')) {
+  if (confirm('Tem certeza que deseja limpar suas tarefas?')) {
     itensDB = []
     updateDB();
   }
 }
 
 
-btnEditCategorias.onclick = () => {  
+btnEditCategorias.onclick = () => {
   //e.preventDefault();
   //alert('Botão de edição de categoria pressionado');
   document.getElementById("modalcategoria").style.display = "block";
@@ -69,44 +68,39 @@ function closeCategorias() {
   document.getElementById("salvar").style.display = "block";
   document.getElementById("close-modal-tarefa").style.display = "block";
   carregaItensCategorias();
-  
+
 }
 
 //Ação ao pressionar tecla. apenas tecla enter está configurada
 hora.addEventListener('keypress', e => {
-      if (e.key == 'Enter' && texto.value != '') {
-      setItemDB();
-    }     
+  if (e.key == 'Enter' && texto.value != '') {
+    if (edita) {
+      const i = document.getElementById('id-edita').value;
+      removeItem(i);
+    }
+    setItemDB();
+  }
 });
-
-
-
-
-
-
 
 //Ação ao clicar botão btnInsert
 btnInsert.onclick = () => {
   //Analiso se o conteúdo do botão é diferente de vazio
   if (texto.value != '' && categoria.value != '' && hora.value != '') {
-    setItemDB();//Seta itemDB
     //Verifico se é update, caso seja apago o item anterior    
     if (edita) {
       const i = document.getElementById('id-edita').value;
       removeItem(i);
     }
-    
+    setItemDB();//Seta itemDB
     texto.style.borderColor = '#ced4da';
     categoria.style.borderColor = '#ced4da';
     hora.style.borderColor = '#ced4da';
-
     modalTarefas.toggle();
   } else {
     texto.style.borderColor = (texto.value == '') ? '#dc3545' : '#ced4da';
     categoria.style.borderColor = (categoria.value == '') ? '#dc3545' : '#ced4da';
     hora.style.borderColor = (hora.value == '') ? '#dc3545' : '#ced4da';
-
-    alert('Formulário preenchido incorretamente. Tente novamente.');
+    //alert('Formulário preenchido incorretamente. Tente novamente.');
     return;
   }
 }
@@ -118,7 +112,9 @@ function setItemDB() {
     return
   }
   //Adiciona um ítem ao array  
-  itensDB.push({ 'item': texto.value, 'categoria': categoria.value, hora: hora.value, 'status': '' })
+  itensDB.push({'item': texto.value, 'categoria': categoria.value, hora: hora.value, 'status': '' });
+  console.log('Tarefa '+texto.value);
+  //console.log(texto.value);
   updateDB();
 }
 
@@ -127,10 +123,9 @@ function updateDB() {
   itensDB.sort((a, b) => {
     const horaA = (a.hora ?? '00:00').toString();
     const horaB = (b.hora ?? '00:00').toString();
-
     return horaA.localeCompare(horaB);
   });
-
+  //console.log(itensDB);
   localStorage.setItem('todolist', JSON.stringify(itensDB))
   loadItens();
 }
@@ -179,8 +174,7 @@ function insertItemTela(text, categoria, hora, status, i) {
   } else {
     document.querySelector(`[data-si="${i}"]`).classList.remove('line-through');
   }
-
-  texto.value = '';
+  //texto.value = '';
 }
 
 function done(chk, i) {
@@ -190,7 +184,6 @@ function done(chk, i) {
   } else {
     itensDB[i].status = ''
   }
-
   updateDB();
 }
 
@@ -350,15 +343,15 @@ function limparSelect() {
 
 carregaItensCategorias();
 
-function mudaCor(){
+function mudaCor() {
   const element = document.querySelector('body');
-  if(element.classList.contains('bg-dark')){
+  if (element.classList.contains('bg-dark')) {
     element.classList.remove('bg-dark');
     element.classList.remove('text-white');
-  }else{
+  } else {
     element.classList.add('bg-dark');
     element.classList.add('text-white');
-  } 
+  }
   updateDB();
 }
 
