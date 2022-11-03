@@ -40,7 +40,6 @@ const ul = document.querySelector('ul');
 var itensDB = []
 
 
-
 //Ação de deletar todos os registros
 //O delete apenas registra o valor vazio no array
 btnDeleteAll.onclick = () => {
@@ -49,7 +48,6 @@ btnDeleteAll.onclick = () => {
     updateDB();
   }
 }
-
 
 btnEditCategorias.onclick = () => {
   //e.preventDefault();
@@ -160,7 +158,7 @@ function insertItemTela(text, categoria, hora, status, i) {
   const li = document.createElement('li');
 
   li.innerHTML = `
-    <div class="divLi">
+    <div class="divLi text-black" id="linha-${i}">
       <input type="checkbox" ${status} data-i=${i} onchange="done(this, ${i});" />
       <span data-si=${i}>${text}</span>
       <span>${categoria}</span>
@@ -175,8 +173,10 @@ function insertItemTela(text, categoria, hora, status, i) {
   //Linha riscada - Atividade Concluída
   if (status) {
     document.querySelector(`[data-si="${i}"]`).classList.add('line-through');
+    document.getElementById(`linha-${i}`).classList.add('line-through');
   } else {
     document.querySelector(`[data-si="${i}"]`).classList.remove('line-through');
+    document.getElementById(`linha-${i}`).classList.remove('line-through');
   }
   //texto.value = '';
 }
