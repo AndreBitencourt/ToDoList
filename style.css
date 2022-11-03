@@ -132,7 +132,12 @@ li {
     font-size: 30px;
     padding: 0px;
   }
-
+  .btLimparLista{
+  
+  }
+  .lixeira{
+    width: 20%!important;
+  }
   p {
     font-size: x-large;
   }
