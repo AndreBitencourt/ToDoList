@@ -327,7 +327,7 @@ function carregaItensCategorias() {
   itensCategorias = JSON.parse(localStorage.getItem('categorias')) ?? []
   itensCategorias.forEach((itensCategorias) => {
     //geraSelectCategorias(itensCategorias.item); 
-    option = new Option(itensCategorias.item, itensCategorias.item.toLowerCase());
+    option = new Option(itensCategorias.item, itensCategorias.item.toUpperCase());
     selectCategorias.options[selectCategorias.options.length] = option;
   })
 
@@ -336,7 +336,7 @@ function carregaItensCategorias() {
 function limparSelect() {
   // obter o elemento select
   var elem = document.getElementById("categoria");
-  // excluir todas as opções
+  // excluir todas as opções exceto a informação para seleção
   elem.options.length = 1;
 }
 
