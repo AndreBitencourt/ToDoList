@@ -58,15 +58,19 @@ btnEditCategorias.onclick = () => {
   //Oculto o botão salvar e o close modal tarefas
   document.getElementById("salvar").style.display = "none";
   document.getElementById("close-modal-tarefa").style.display = "none";
+  document.getElementById("form").style.display = "none";  
   //Carrego as categorias
   loadItensCategorias();
 }
 
 function closeCategorias() {
   document.getElementById("modalcategoria").style.display = "none";
+  document.getElementById("form").style.display = "block";
   //Exibo o botão salvar
   document.getElementById("salvar").style.display = "block";
   document.getElementById("close-modal-tarefa").style.display = "block";
+
+
   carregaItensCategorias();
 
 }
@@ -236,7 +240,6 @@ const textoCategoria = document.querySelector('.txtCadastroCategoria input')
 const btnInsertCategoria = document.querySelector('.divInsertCategoria button')
 //const btnDeleteAllCategoria = document.querySelector('.header button')
 const ol = document.querySelector('ol');
-
 
 
 var itensDBCategorias = []
