@@ -122,11 +122,15 @@ function setItemDB() {
   updateDB();
 }
 
-
-
-
 //Atualizo Local Storage com os dados armazenados no itensDB
 function updateDB() {
+  itensDB.sort((a, b) => {
+    const horaA = (a.hora ?? '00:00').toString();
+    const horaB = (b.hora ?? '00:00').toString();
+
+    return horaA.localeCompare(horaB);
+  });
+
   localStorage.setItem('todolist', JSON.stringify(itensDB))
   loadItens();
 }
@@ -354,6 +358,7 @@ function mudaCor(){
   }else{
     element.classList.add('bg-dark');
     element.classList.add('text-white');
-  }  
+  } 
+  updateDB();
 }
 
