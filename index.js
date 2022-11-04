@@ -8,9 +8,9 @@ let hora = document.querySelector('.txtInputHora input');
 //filtro
 let filter = document.querySelector('.filter select');
 
-
-
 let modalTarefas = new bootstrap.Modal(document.getElementById('modal'));
+
+
 
 let edita = false;
 
