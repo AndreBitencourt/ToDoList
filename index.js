@@ -429,10 +429,12 @@ function ativaCor(cor) {
   if (cor === 'black') {
     console.log(cor);
     element.classList.add('bg-dark');
-    element.classList.add('text-white');
+    element.classList.add('text-white');    
+    document.getElementById('muda-cor').style.color= 'white';
   } else {
     element.classList.remove('bg-dark');
     element.classList.remove('text-white');
+    document.getElementById('muda-cor').style.color= 'black';
   }
 }
 
