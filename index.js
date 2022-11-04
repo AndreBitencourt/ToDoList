@@ -26,8 +26,7 @@ btnAbreModal.onclick = () => {
   edita = false;
 }
 
-//Lê dentro da class .divInsert o atributo button
-// const btnInsert = document.querySelector('.divInsert button');
+//Lê dentro da class .modal-footer o atributo button
 const btnInsert = document.querySelector('.modal-footer button');
 
 //Delete All - Lê dentro da classe header o atributo button
@@ -53,9 +52,8 @@ btnDeleteAll.onclick = () => {
   }
 }
 
-btnEditCategorias.onclick = () => {
-  //e.preventDefault();
-  //alert('Botão de edição de categoria pressionado');
+//Ativação do botão de edição de categorias
+btnEditCategorias.onclick = () => {  
   document.getElementById("modalcategoria").style.display = "block";
   //Oculto o botão salvar e o close modal tarefas
   document.getElementById("salvar").style.display = "none";
@@ -72,11 +70,8 @@ function closeCategorias() {
   document.getElementById("salvar").style.display = "block";
   document.getElementById("close-modal-tarefa").style.display = "block";
 
-
   carregaItensCategorias();
-
 }
-
 
 
 //Ação ao pressionar tecla. apenas tecla enter está configurada
@@ -107,12 +102,23 @@ btnInsert.onclick = () => {
   } else {
     texto.style.borderColor = (texto.value == '') ? '#dc3545' : '#ced4da';
     categoria.style.borderColor = (categoria.value == '') ? '#dc3545' : '#ced4da';
-    hora.style.borderColor = (hora.value == '') ? '#dc3545' : '#ced4da';
-    //alert('Formulário preenchido incorretamente. Tente novamente.');
+    hora.style.borderColor = (hora.value == '') ? '#dc3545' : '#ced4da';    
     return;
   }
 }
 
+texto.onblur = () => {
+  texto.style.borderColor = (texto.value == '') ? '#dc3545' : '#00c04b';
+}
+
+categoria.onchange = () => {
+  categoria.style.borderColor =(categoria.value == '') ? '#dc3545' : '#00c04b';
+}
+
+hora.onblur = () => {
+  hora.style.borderColor = (hora.value == '') ? '#dc3545' : '#00c04b';
+}
+    
 //Inserir ítem no LS
 function setItemDB() {
   if (itensDB.length >= 20) {//Limita em 20 as atividades
