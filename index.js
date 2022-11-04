@@ -183,6 +183,8 @@ function insertItemTela(text, categoria, hora, status, i) {
     } else {
       classe = 'texto-black';
     }
+  }else{
+    classe = 'texto-black';
   }
 
   li.innerHTML = `
