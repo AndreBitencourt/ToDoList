@@ -180,9 +180,11 @@ function insertItemTela(text, categoria, hora, status, i) {
   if (status) {
     document.querySelector(`[data-si="${i}"]`).classList.add('line-through');
     document.getElementById(`linha-${i}`).classList.add('line-through');
+    return('completo'); //para filtro
   } else {
     document.querySelector(`[data-si="${i}"]`).classList.remove('line-through');
     document.getElementById(`linha-${i}`).classList.remove('line-through');
+    return('imcompleto'); //para filtro
   }
   //texto.value = '';
 }
@@ -192,26 +194,27 @@ function insertItemTela(text, categoria, hora, status, i) {
 filter.addEventListener('click', filterToDo);
 
 function filterToDo(e) {
+
   const todolist = ul.childNodes;
   console.log(todolist);
 
-  todolist.forEach((toDo) => {
+  todolist.forEach((status) => {
     switch (e.target.value) {
       case 'all':
-          toDo.style.display = '';
+          status.style.display = 'block';
         break;
       case 'completed':
-        if (toDo.classList.contains('completed')) {
-          toDo.style.display = '';
+        if (!status.classList.contains('completo')) {
+          status.style.display = 'block'
         } else{
-          toDo.style.display = 'none';
+          status.style.display = 'none';
         }
         break;
       case 'uncompleted':
-        if (!toDo.classList.contains('uncompleted')) {
-          toDo.style.display = ''
+        if (!status.classList.contains('incompleto')) {
+          status.style.display = 'block';
         } else{
-          toDo.style.display = 'none';
+          status.style.display = 'none';
         }
         break;
 
