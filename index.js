@@ -331,6 +331,12 @@ function setItemDBCategorias() {
 }
 
 function updateDBCategorias() {
+  //Ordena as atividades em ordem alfabética
+  itensDBCategorias.sort((a, b) => {
+    const itemA = a.item.toString();
+    const itemB = b.item.toString();
+    return itemA.localeCompare(itemB);
+  });
   localStorage.setItem('categorias', JSON.stringify(itensDBCategorias))
   loadItensCategorias();
 }
