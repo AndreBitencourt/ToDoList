@@ -42,6 +42,30 @@ const ul = document.querySelector('ul');
 //Observar que ela fica como var para ser usada no escopo de funções posteriores
 var itensDB = []
 
+const validaCampo = (campo) => {
+  const erroTag = campo.nextElementSibling;
+
+  campo.style.borderColor = (campo.value != '') ? '#ced4da' : '#dc3545';
+  erroTag.style.display = (campo.value != '') ? 'none' : 'block';
+}
+
+const validaFormulario = () => {
+  validaCampo(texto); 
+  validaCampo(categoria); 
+  validaCampo(hora); 
+
+  //Analiso se o conteúdo do botão é diferente de vazio
+  if (texto.value != '' && categoria.value != '' && hora.value != '') {
+    //Verifico se é update, caso seja apago o item anterior    
+    if (edita) {
+      const i = document.getElementById('id-edita').value;
+      removeItem(i);
+    }
+
+    setItemDB();//Seta itemDB
+    modalTarefas.toggle();
+  }
+}
 
 //Ação de deletar todos os registros
 //O delete apenas registra o valor vazio no array
@@ -76,36 +100,11 @@ function closeCategorias() {
 
 //Ação ao pressionar tecla. apenas tecla enter está configurada
 hora.addEventListener('keypress', e => {
-  if (e.key == 'Enter' && texto.value != '') {
-    if (edita) {
-      const i = document.getElementById('id-edita').value;
-      removeItem(i);
-    }
-    setItemDB();
-  }
+  if (e.key == 'Enter') validaFormulario();
 });
 
 //Ação ao clicar botão btnInsert
-btnInsert.onclick = () => {
-  //Analiso se o conteúdo do botão é diferente de vazio
-  if (texto.value != '' && categoria.value != '' && hora.value != '') {
-    //Verifico se é update, caso seja apago o item anterior    
-    if (edita) {
-      const i = document.getElementById('id-edita').value;
-      removeItem(i);
-    }
-    setItemDB();//Seta itemDB
-    texto.style.borderColor = '#ced4da';
-    categoria.style.borderColor = '#ced4da';
-    hora.style.borderColor = '#ced4da';
-    modalTarefas.toggle();
-  } else {
-    texto.style.borderColor = (texto.value == '') ? '#dc3545' : '#ced4da';
-    categoria.style.borderColor = (categoria.value == '') ? '#dc3545' : '#ced4da';
-    hora.style.borderColor = (hora.value == '') ? '#dc3545' : '#ced4da';    
-    return;
-  }
-}
+btnInsert.onclick = () => validaFormulario();
 
 texto.onblur = () => {
   texto.style.borderColor = (texto.value == '') ? '#dc3545' : '#00c04b';
@@ -139,6 +138,7 @@ function updateDB() {
     const horaB = (b.hora ?? '00:00').toString();
     return horaA.localeCompare(horaB);
   });
+
   //console.log(itensDB);
   localStorage.setItem('todolist', JSON.stringify(itensDB))
   loadItens();
@@ -316,12 +316,14 @@ var itensDBCategorias = []
 // }
 
 textoCategoria.addEventListener('keypress', e => {
+  validaCampo(textoCategoria);
   if (e.key == 'Enter' && textoCategoria.value != '') {
     setItemDBCategorias()
   }
 })
 
 btnInsertCategoria.onclick = () => {
+  validaCampo(textoCategoria);
   if (textoCategoria.value != '') {
     setItemDBCategorias()
   }

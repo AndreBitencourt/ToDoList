@@ -203,3 +203,26 @@ h2{
 #muda-cor{
   padding-left: 20px;
 }
+
+.erro {
+  color: red;
+  font-size: 12px;
+  display: none;
+}
+
+.txtCadastroCategoria {
+  /* width: 88% !important; */
+}
+
+.divInsertCategoria {
+  margin-top: -10px;
+}
+
+input {
+  border-radius: 0.375rem !important;
+}
+
+select {
+  border-top-right-radius: 0.375rem !important;
+  border-bottom-right-radius: 0.375rem !important;
+}
