@@ -5,6 +5,10 @@ let texto = document.querySelector('.txtInputTarefa input');
 let categoria = document.querySelector('.txtInputCategoria select');
 //hora
 let hora = document.querySelector('.txtInputHora input');
+//filtro
+let filter =document.querySelector('.filter select');
+
+
 
 let modalTarefas = new bootstrap.Modal(document.getElementById('modal'));
 
@@ -72,6 +76,8 @@ function closeCategorias() {
   carregaItensCategorias();
 
 }
+
+
 
 //Ação ao pressionar tecla. apenas tecla enter está configurada
 hora.addEventListener('keypress', e => {
@@ -180,6 +186,42 @@ function insertItemTela(text, categoria, hora, status, i) {
   }
   //texto.value = '';
 }
+
+//Ação para filtrar as tarefas
+
+filter.addEventListener('click', filterToDo);
+
+function filterToDo(e) {
+  const todolist = ul.childNodes;
+  console.log(todolist);
+
+  todolist.forEach((toDo) => {
+    switch (e.target.value) {
+      case 'all':
+          toDo.style.display = '';
+        break;
+      case 'completed':
+        if (toDo.classList.contains('completed')) {
+          toDo.style.display = '';
+        } else{
+          toDo.style.display = 'none';
+        }
+        break;
+      case 'uncompleted':
+        if (!toDo.classList.contains('uncompleted')) {
+          toDo.style.display = ''
+        } else{
+          toDo.style.display = 'none';
+        }
+        break;
+
+      default:
+        break;
+    }
+  })
+    
+  }
+  
 
 function done(chk, i) {
 

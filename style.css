@@ -109,6 +109,21 @@ button {
   border-color: rgb(139, 14, 223);;
 }
 
+filter{
+  appearance: none;
+  outline: nome;
+  border: nome;
+  color: 6px 5px 10px 0px grey;
+  width: 20ren;
+  display: flex;
+  
+
+}
+.filter{
+  margin-top: 5%;
+  position: relative;
+}
+
 
 li {
   margin-left: -30px;
@@ -142,6 +157,8 @@ li {
     display: block;
     height: 30%;
     width: 50%;
+
+    
   }
 }
 
@@ -159,15 +176,18 @@ li {
   z-index: 999;
 }
 
+
 .footer-trash{
   display: block;
   align-items: center;
   justify-content: center;
   height: 30%;
 
+
 }
 .container footer{
   vertical-align: middle;
+
 }
 
 
