@@ -1,15 +1,22 @@
 //Crio uma constante que lê os seletores input
 //Atividade
-const texto = document.querySelector('.txtInputTarefa input');
+let texto = document.querySelector('.txtInputTarefa input');
 //Categoria
-const categoria = document.querySelector('.txtInputCategoria select');
+let categoria = document.querySelector('.txtInputCategoria select');
 //hora
-const hora = document.querySelector('.txtInputHora input');
+let hora = document.querySelector('.txtInputHora input');
+//filtro
+let filter = document.querySelector('.filter select');
+
+let modalTarefas = new bootstrap.Modal(document.getElementById('modal'));
+
+
 
 let edita = false;
 
 //Pego o clique no + para editar texto do modal
 const btnAbreModal = document.getElementById('addTarefa');
+
 btnAbreModal.onclick = () => {
   document.getElementById('modal-titulo').innerHTML = 'Nova Tarefa';
   document.getElementById('salvar').innerHTML = 'Salvar';
@@ -19,8 +26,7 @@ btnAbreModal.onclick = () => {
   edita = false;
 }
 
-//Lê dentro da class .divInsert o atributo button
-// const btnInsert = document.querySelector('.divInsert button');
+//Lê dentro da class .modal-footer o atributo button
 const btnInsert = document.querySelector('.modal-footer button');
 
 //Delete All - Lê dentro da classe header o atributo button
@@ -29,8 +35,6 @@ const btnDeleteAll = document.querySelector('.footer button');
 //Btn Edição de Categorias
 const btnEditCategorias = document.querySelector('.txtInputCategoria span');
 
-
-
 //Leio todos as listas (atentar para que se usar outra lista ordenada agrupar por classe ou dentro de algum id)
 const ul = document.querySelector('ul');
 
@@ -38,64 +42,80 @@ const ul = document.querySelector('ul');
 //Observar que ela fica como var para ser usada no escopo de funções posteriores
 var itensDB = []
 
+const validaCampo = (campo) => {
+  const erroTag = campo.nextElementSibling;
 
+  campo.style.borderColor = (campo.value != '') ? '#ced4da' : '#dc3545';
+  erroTag.style.display = (campo.value != '') ? 'none' : 'block';
+}
+
+const validaFormulario = () => {
+  validaCampo(texto); 
+  validaCampo(categoria); 
+  validaCampo(hora); 
+
+  //Analiso se o conteúdo do botão é diferente de vazio
+  if (texto.value != '' && categoria.value != '' && hora.value != '') {
+    //Verifico se é update, caso seja apago o item anterior    
+    if (edita) {
+      const i = document.getElementById('id-edita').value;
+      removeItem(i);
+    }
+
+    setItemDB();//Seta itemDB
+    modalTarefas.toggle();
+  }
+}
 
 //Ação de deletar todos os registros
 //O delete apenas registra o valor vazio no array
 btnDeleteAll.onclick = () => {
-  itensDB = []
-  updateDB();
+  if (confirm('Tem certeza que deseja limpar suas tarefas?')) {
+    itensDB = []
+    updateDB();
+  }
 }
 
-
-btnEditCategorias.onclick = () => {  
-  //e.preventDefault();
-  //alert('Botão de edição de categoria pressionado');
+//Ativação do botão de edição de categorias
+btnEditCategorias.onclick = () => {
   document.getElementById("modalcategoria").style.display = "block";
   //Oculto o botão salvar e o close modal tarefas
   document.getElementById("salvar").style.display = "none";
   document.getElementById("close-modal-tarefa").style.display = "none";
+  document.getElementById("form").style.display = "none";
   //Carrego as categorias
   loadItensCategorias();
 }
 
 function closeCategorias() {
   document.getElementById("modalcategoria").style.display = "none";
+  document.getElementById("form").style.display = "block";
   //Exibo o botão salvar
   document.getElementById("salvar").style.display = "block";
   document.getElementById("close-modal-tarefa").style.display = "block";
+
   carregaItensCategorias();
-  
 }
 
+
 //Ação ao pressionar tecla. apenas tecla enter está configurada
-texto.addEventListener('keypress', e => {
-      if (e.key == 'Enter' && texto.value != '') {
-      setItemDB();
-    }     
+hora.addEventListener('keypress', e => {
+  if (e.key == 'Enter') validaFormulario();
 });
 
-
-
-
-
-
-
 //Ação ao clicar botão btnInsert
-btnInsert.onclick = () => {
-  //Analiso se o conteúdo do botão é diferente de vazio
-  if (texto.value != '') {
-    setItemDB();//Seta itemDB
-    //Verifico se é update, caso seja apago o item anterior    
-    if (edita) {
-      const i = document.getElementById('id-edita').value;
-      removeItem(i);
-    }
-  }
-  //Condiçoes de categorias
-  // if (categoria.value != '') {
-  //   setItemCategoria();
-  // }
+btnInsert.onclick = () => validaFormulario();
+
+texto.onblur = () => {
+  texto.style.borderColor = (texto.value == '') ? '#dc3545' : '#00c04b';
+}
+
+categoria.onchange = () => {
+  categoria.style.borderColor = (categoria.value == '') ? '#dc3545' : '#00c04b';
+}
+
+hora.onblur = () => {
+  hora.style.borderColor = (hora.value == '') ? '#dc3545' : '#00c04b';
 }
 
 //Inserir ítem no LS
@@ -105,15 +125,21 @@ function setItemDB() {
     return
   }
   //Adiciona um ítem ao array  
-  itensDB.push({ 'item': texto.value, 'categoria': categoria.value, hora: hora.value, 'status': '' })
+  itensDB.push({ 'item': texto.value, 'categoria': categoria.value, hora: hora.value, 'status': '' });
+  console.log('Tarefa ' + texto.value);
+  //console.log(texto.value);
   updateDB();
 }
 
-
-
-
 //Atualizo Local Storage com os dados armazenados no itensDB
 function updateDB() {
+  itensDB.sort((a, b) => {
+    const horaA = (a.hora ?? '00:00').toString();
+    const horaB = (b.hora ?? '00:00').toString();
+    return horaA.localeCompare(horaB);
+  });
+
+  //console.log(itensDB);
   localStorage.setItem('todolist', JSON.stringify(itensDB))
   loadItens();
 }
@@ -124,8 +150,8 @@ function updateDB() {
 //   //loadItens();
 // }
 
-
-function loadItens() {
+function loadItens() { //line-tho AQUIIIIIIIIIIIII
+  document.getElementById('todoList').value = 'all';
   ul.innerHTML = "";
   itensDB = JSON.parse(localStorage.getItem('todolist')) ?? [];
   if (itensDB.length > 0) {
@@ -138,17 +164,35 @@ function loadItens() {
   })
 }
 
+const dataAtual = new Date();
+
+const horaAtual = dataAtual.getHours() + ':' + dataAtual.getMinutes();
+
+let classe = true;
+
+//console.log(typeof horaAtual);
+
 //Inserir ítem na tela
 function insertItemTela(text, categoria, hora, status, i) {
 
   const li = document.createElement('li');
 
+  if (status == '') {
+    if (horaAtual > hora) {
+      classe = 'texto-danger';
+    } else {
+      classe = 'texto-black';
+    }
+  }else{
+    classe = 'texto-black';
+  }
+
   li.innerHTML = `
-    <div class="divLi">
+    <div class="divLi ${classe}" id="linha-${i}">
       <input type="checkbox" ${status} data-i=${i} onchange="done(this, ${i});" />
-      <span data-si=${i}>${text}</span>
-      <span>${categoria}</span>
-      <span>${hora}</span>
+      <span data-si=${i} classe="${classe}">${text}</span>
+      <span classe="${classe}">${categoria}</span>
+      <span classe="${classe}">${hora}</span>
       <button onclick="editaItem(${i})" data-bs-toggle="modal" data-bs-target="#modal" data-i=${i}><i class='bx bx-edit'></i></button>
       <button onclick="removeItem(${i})" data-i=${i}><i class='bx bx-trash'></i></button>
     </div>
@@ -159,12 +203,67 @@ function insertItemTela(text, categoria, hora, status, i) {
   //Linha riscada - Atividade Concluída
   if (status) {
     document.querySelector(`[data-si="${i}"]`).classList.add('line-through');
+    document.getElementById(`linha-${i}`).classList.add('line-through');
+    return ('completo'); //para filtro
   } else {
     document.querySelector(`[data-si="${i}"]`).classList.remove('line-through');
+    document.getElementById(`linha-${i}`).classList.remove('line-through');
+    return ('imcompleto'); //para filtro
   }
+  //texto.value = '';
 
-  texto.value = '';
 }
+
+//Ação para filtrar as tarefas
+
+
+filter.onchange = () => {
+  var select = document.getElementById("todoList");
+  //Opção selecionada
+  const selecionado = select.options[select.selectedIndex].value;
+  const classes = document.querySelectorAll('.line-through');
+  const uls = document.querySelectorAll('ul li');
+  uls.forEach(element => {
+    element.style.display = "block";
+  });
+  switch (selecionado) {
+    case 'all':
+      classes.forEach(element => {
+        let divAnterior = element.closest("li");
+        divAnterior.style.display = "block";
+      });
+      break;
+    case 'completed':
+      //Oculto as lis que não tem a classe
+      //var obj=document.getElementById(idObj).hidden=true;
+      uls.forEach(element => {
+        element.style.display = "none";
+      });
+      classes.forEach(element => {
+        let divAnterior = element.closest("li");
+        divAnterior.style.display = "block";
+      });
+      break;
+    case 'uncompleted':
+      classes.forEach(element => {
+        let divAnterior = element.closest("li");
+        divAnterior.style.display = "none";
+      });
+      break;
+
+    default:
+      break;
+  }
+}
+
+function filtrarItens(filtro) {
+
+  filtro.forEach(element => {
+    element.style.display = "none";
+  });
+}
+
+
 
 function done(chk, i) {
 
@@ -173,7 +272,6 @@ function done(chk, i) {
   } else {
     itensDB[i].status = ''
   }
-
   updateDB();
 }
 
@@ -228,7 +326,6 @@ const btnInsertCategoria = document.querySelector('.divInsertCategoria button')
 const ol = document.querySelector('ol');
 
 
-
 var itensDBCategorias = []
 
 // btnDeleteAllCategoria.onclick = () => {
@@ -237,12 +334,14 @@ var itensDBCategorias = []
 // }
 
 textoCategoria.addEventListener('keypress', e => {
+  validaCampo(textoCategoria);
   if (e.key == 'Enter' && textoCategoria.value != '') {
     setItemDBCategorias()
   }
 })
 
 btnInsertCategoria.onclick = () => {
+  validaCampo(textoCategoria);
   if (textoCategoria.value != '') {
     setItemDBCategorias()
   }
@@ -258,6 +357,12 @@ function setItemDBCategorias() {
 }
 
 function updateDBCategorias() {
+  //Ordena as atividades em ordem alfabética
+  itensDBCategorias.sort((a, b) => {
+    const itemA = a.item.toString();
+    const itemB = b.item.toString();
+    return itemA.localeCompare(itemB);
+  });
   localStorage.setItem('categorias', JSON.stringify(itensDBCategorias))
   loadItensCategorias();
 }
@@ -317,7 +422,7 @@ function carregaItensCategorias() {
   itensCategorias = JSON.parse(localStorage.getItem('categorias')) ?? []
   itensCategorias.forEach((itensCategorias) => {
     //geraSelectCategorias(itensCategorias.item); 
-    option = new Option(itensCategorias.item, itensCategorias.item.toLowerCase());
+    option = new Option(itensCategorias.item, itensCategorias.item.toUpperCase());
     selectCategorias.options[selectCategorias.options.length] = option;
   })
 
@@ -326,21 +431,42 @@ function carregaItensCategorias() {
 function limparSelect() {
   // obter o elemento select
   var elem = document.getElementById("categoria");
-  // excluir todas as opções
+  // excluir todas as opções exceto a informação para seleção
   elem.options.length = 1;
 }
 
 
 carregaItensCategorias();
 
-function mudaCor(){
+const corFundo = localStorage.getItem('back');
+
+if (corFundo) {
+  ativaCor(corFundo);
+}
+
+function mudaCor() {
   const element = document.querySelector('body');
-  if(element.classList.contains('bg-dark')){
-    element.classList.remove('bg-dark');
-    element.classList.remove('text-white');
-  }else{
+  let color;
+  if (element.classList.contains('bg-dark')) {
+    color = 'white';
+  } else {
+    color = 'black';
+  }
+  localStorage.setItem('back', color);
+  ativaCor(color);
+}
+
+function ativaCor(cor) {
+  const element = document.querySelector('body');
+  if (cor === 'black') {
+    console.log(cor);
     element.classList.add('bg-dark');
     element.classList.add('text-white');
-  }  
+    document.getElementById('muda-cor').style.color = 'white';
+  } else {
+    element.classList.remove('bg-dark');
+    element.classList.remove('text-white');
+    document.getElementById('muda-cor').style.color = 'black';
+  }
 }
 

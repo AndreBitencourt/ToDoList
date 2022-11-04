@@ -27,13 +27,6 @@ ul ol{
 }
 
 
-
-.header button {
-  /*position: absolute;
-  right: 18%;
-  margin-top: -30px;*/
-} 
-
 .header i {
   font-size: 30px;
 } 
@@ -67,13 +60,21 @@ button {
   outline: none;
 }
 
-.bx-plus {
+.bx-plus,
+.bx-check-circle {
   font-size: 30px;
   margin-left: 10px;
+  margin-top: 10px;
   background-color: rgb(139, 14, 223);
   border-radius: 50%;
   padding: 5px;
   color: white;
+}
+
+.col-2{
+  display: block;
+  /* height: 100%;
+  width: 40%; */
 }
 
 .divLi {
@@ -88,7 +89,7 @@ button {
 
 .divLi span {
   width: 80%;
-  color: dimgray;
+  /*color: dimgray;*/
 }
 
 .divLi input {
@@ -100,7 +101,26 @@ button {
 /*Tamanho dos botões*/
 .divLi i {
   font-size: 25px;
-  color: brown;
+  color: rgb(139, 14, 223);
+}
+
+.btn-primary, .btn-success {
+  background-color: rgb(139, 14, 223);
+  border-color: rgb(139, 14, 223);;
+}
+
+filter{
+  appearance: none;
+  outline: nome;
+  border: nome;
+  color: 6px 5px 10px 0px grey;
+  width: 20ren;
+  display: flex;
+  
+
+}
+.filter{  
+  position: relative;
 }
 
 
@@ -126,29 +146,91 @@ li {
     font-size: 30px;
     padding: 0px;
   }
-
+  .lixeira{
+    width: 20%!important;
+  }
   p {
     font-size: x-large;
+  }
+  .col-2{
+    display: block;
+    height: 30%;
+    width: 50%;
+
+    
   }
 }
 
 .footer button{    
   float: right;
     font-size: 30px;
-    color: red;  
+    color: rgb(139, 14, 223);  
 }
 
 #modalcategoria{   
   background-color: #fff; 
   float: center;
-  position: absolute;
-  margin: 0;  
-  width: 95%;  
+  margin: 0;
   padding: 0px;
   z-index: 999;
 }
 
 
+.footer-trash{
+  display: block;
+  align-items: center;
+  justify-content: center;
+  height: 30%;
+
+
+}
+.container footer{
+  vertical-align: middle;
+
+}
+
+
+
 h2{
   color: black;
+}
+
+
+.text-black{
+  color: black;
+}
+
+#muda-cor{
+  padding-left: 20px;
+}
+
+.erro {
+  color: red;
+  font-size: 12px;
+  display: none;
+}
+
+.txtCadastroCategoria {
+  /* width: 88% !important; */
+}
+
+.divInsertCategoria {
+  margin-top: -10px;
+}
+
+input {
+  border-radius: 0.375rem !important;
+}
+
+select {
+  border-top-right-radius: 0.375rem !important;
+  border-bottom-right-radius: 0.375rem !important;
+}
+
+.texto-danger{
+  color: red !important;
+}
+
+.texto-black{
+  color: black !important;
 }
