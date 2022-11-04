@@ -87,13 +87,12 @@ button {
   align-items: center;
 }
 
-.divLi span {
-  width: auto;
+.divLi div:first-of-type {
   word-wrap: break-word;
 }
 
 .divLi input {
-  width: 10%;
+  height: 14px;
   outline: none;
   accent-color: currentcolor;
 }
@@ -161,8 +160,11 @@ li {
     display: block;
     height: 30%;
     width: 50%;
+  }
 
-
+  .divLi div:not(:first-of-type) {
+    margin-top: 4px;
+    margin-bottom: 4px;
   }
 }
 

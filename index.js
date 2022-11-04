@@ -189,15 +189,15 @@ function insertItemTela(text, categoria, hora, status, i) {
 
   li.innerHTML = `
     <div class="row divLi ${classe}" id="linha-${i}">
-    <div class="col-md-8">
-    <input type="checkbox" ${status} data-i=${i} onchange="done(this, ${i});" />
-      <span data-si=${i} classe="${classe}">${text}</span>
+    <div class="col-md-8 col-xs-12 row align-items-center">
+      <input type="checkbox" class="col-1" ${status} data-i=${i} onchange="done(this, ${i});" />
+      <span data-si=${i} class="${classe} col-11">${text}</span>
     </div>
     <div class="col-md-2 text-center">
-      <span classe="${classe}">${categoria}</span>
+      <span class="${classe}">${categoria}</span>
     </div>
     <div class="col-md-1 text-center">
-      <span classe="${classe}">${hora}</span>
+      <span class="${classe}">${hora}</span>
       </div>
       <div class="col-md-1 text-center">
       <button onclick="editaItem(${i})" data-bs-toggle="modal" data-bs-target="#modal" data-i=${i}><i class='bx bx-edit'></i></button>
