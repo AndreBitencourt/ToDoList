@@ -164,17 +164,31 @@ function loadItens() { //line-tho AQUIIIIIIIIIIIII
   })
 }
 
+const dataAtual = new Date();
+
+const horaAtual = dataAtual.getHours()+':'+dataAtual.getMinutes();
+
+let classe = true;
+
+//console.log(typeof horaAtual);
+
 //Inserir ítem na tela
 function insertItemTela(text, categoria, hora, status, i) {
 
   const li = document.createElement('li');
-
+ 
+  if(horaAtual > hora){
+    classe = 'texto-danger';
+  } else{    
+    classe = 'texto-black';
+  }
+ 
   li.innerHTML = `
-    <div class="divLi text-black" id="linha-${i}">
+    <div class="divLi ${classe}" id="linha-${i}">
       <input type="checkbox" ${status} data-i=${i} onchange="done(this, ${i});" />
-      <span data-si=${i}>${text}</span>
-      <span>${categoria}</span>
-      <span>${hora}</span>
+      <span data-si=${i} classe="${classe}">${text}</span>
+      <span classe="${classe}">${categoria}</span>
+      <span classe="${classe}">${hora}</span>
       <button onclick="editaItem(${i})" data-bs-toggle="modal" data-bs-target="#modal" data-i=${i}><i class='bx bx-edit'></i></button>
       <button onclick="removeItem(${i})" data-i=${i}><i class='bx bx-trash'></i></button>
     </div>
