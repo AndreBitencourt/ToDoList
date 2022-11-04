@@ -132,9 +132,6 @@ li {
     font-size: 30px;
     padding: 0px;
   }
-  .btLimparLista{
-  
-  }
   .lixeira{
     width: 20%!important;
   }
@@ -161,6 +158,18 @@ li {
   padding: 0px;
   z-index: 999;
 }
+
+.footer-trash{
+  display: block;
+  align-items: center;
+  justify-content: center;
+  height: 30%;
+
+}
+.container footer{
+  vertical-align: middle;
+}
+
 
 
 h2{
