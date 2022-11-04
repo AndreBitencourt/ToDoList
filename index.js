@@ -50,9 +50,9 @@ const validaCampo = (campo) => {
 }
 
 const validaFormulario = () => {
-  validaCampo(texto); 
-  validaCampo(categoria); 
-  validaCampo(hora); 
+  validaCampo(texto);
+  validaCampo(categoria);
+  validaCampo(hora);
 
   //Analiso se o conteúdo do botão é diferente de vazio
   if (texto.value != '' && categoria.value != '' && hora.value != '') {
@@ -183,18 +183,26 @@ function insertItemTela(text, categoria, hora, status, i) {
     } else {
       classe = 'texto-black';
     }
-  }else{
+  } else {
     classe = 'texto-black';
   }
 
   li.innerHTML = `
-    <div class="divLi ${classe}" id="linha-${i}">
-      <input type="checkbox" ${status} data-i=${i} onchange="done(this, ${i});" />
+    <div class="row divLi ${classe}" id="linha-${i}">
+    <div class="col-md-8">
+    <input type="checkbox" ${status} data-i=${i} onchange="done(this, ${i});" />
       <span data-si=${i} classe="${classe}">${text}</span>
+    </div>
+    <div class="col-md-2 text-center">
       <span classe="${classe}">${categoria}</span>
+    </div>
+    <div class="col-md-1 text-center">
       <span classe="${classe}">${hora}</span>
+      </div>
+      <div class="col-md-1 text-center">
       <button onclick="editaItem(${i})" data-bs-toggle="modal" data-bs-target="#modal" data-i=${i}><i class='bx bx-edit'></i></button>
       <button onclick="removeItem(${i})" data-i=${i}><i class='bx bx-trash'></i></button>
+      </div>
     </div>
     `;
   //Adiciona uma ul ao final da lista

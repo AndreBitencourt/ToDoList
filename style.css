@@ -7,7 +7,7 @@
   font-family: 'Poppins', sans-serif;
 }
 
-body {  
+body {
   display: flex;
   justify-content: center;
   background-color: whitesmoke;
@@ -20,7 +20,7 @@ p {
   font-weight: bold;
 }
 
-ul ol{
+ul ol {
   display: flex;
   flex-direction: column-reverse;
   /*margin-bottom: 20px;*/
@@ -29,7 +29,7 @@ ul ol{
 
 .header i {
   font-size: 30px;
-} 
+}
 
 .to-do {
   margin-top: 40px;
@@ -71,7 +71,7 @@ button {
   color: white;
 }
 
-.col-2{
+.col-2 {
   display: block;
   /* height: 100%;
   width: 40%; */
@@ -88,8 +88,7 @@ button {
 }
 
 .divLi span {
-  width: 80%;
-  /*color: dimgray;*/
+  width: auto;
 }
 
 .divLi input {
@@ -104,29 +103,31 @@ button {
   color: rgb(139, 14, 223);
 }
 
-.btn-primary, .btn-success {
+.btn-primary,
+.btn-success {
   background-color: rgb(139, 14, 223);
-  border-color: rgb(139, 14, 223);;
+  border-color: rgb(139, 14, 223);
+  ;
 }
 
-filter{
+filter {
   appearance: none;
   outline: nome;
   border: nome;
   color: 6px 5px 10px 0px grey;
   width: 20ren;
   display: flex;
-  
 
 }
-.filter{  
+
+.filter {
   position: relative;
 }
 
 
 li {
   margin-left: -30px;
-  list-style-type: none;  
+  list-style-type: none;
 }
 
 .line-through {
@@ -146,29 +147,32 @@ li {
     font-size: 30px;
     padding: 0px;
   }
-  .lixeira{
-    width: 20%!important;
+
+  .lixeira {
+    width: 20% !important;
   }
+
   p {
     font-size: x-large;
   }
-  .col-2{
+
+  .col-2 {
     display: block;
     height: 30%;
     width: 50%;
 
-    
+
   }
 }
 
-.footer button{    
+.footer button {
   float: right;
-    font-size: 30px;
-    color: rgb(139, 14, 223);  
+  font-size: 30px;
+  color: rgb(139, 14, 223);
 }
 
-#modalcategoria{   
-  background-color: #fff; 
+#modalcategoria {
+  background-color: #fff;
   float: center;
   margin: 0;
   padding: 0px;
@@ -176,31 +180,28 @@ li {
 }
 
 
-.footer-trash{
+.footer-trash {
   display: block;
   align-items: center;
   justify-content: center;
   height: 30%;
 
-
 }
-.container footer{
+
+.container footer {
   vertical-align: middle;
 
 }
 
-
-
-h2{
+h2 {
   color: black;
 }
 
-
-.text-black{
+.text-black {
   color: black;
 }
 
-#muda-cor{
+#muda-cor {
   padding-left: 20px;
 }
 
@@ -210,9 +211,10 @@ h2{
   display: none;
 }
 
+/*
 .txtCadastroCategoria {
-  /* width: 88% !important; */
-}
+   width: 88% !important;
+}*/
 
 .divInsertCategoria {
   margin-top: -10px;
@@ -227,10 +229,14 @@ select {
   border-bottom-right-radius: 0.375rem !important;
 }
 
-.texto-danger{
+.texto-danger {
   color: red !important;
 }
 
-.texto-black{
+.texto-black {
   color: black !important;
+}
+
+.float-direita {
+  float: right;
 }
