@@ -144,7 +144,6 @@ function updateDB() {
 //   //loadItens();
 // }
 
-
 function loadItens() { //line-tho AQUIIIIIIIIIIIII
   document.getElementById('todoList').value = 'all';
   ul.innerHTML = "";
