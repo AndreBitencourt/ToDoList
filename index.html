@@ -34,21 +34,22 @@
           <span class="btnMoon">
             <button><i class="bx bx-moon" onclick="mudaCor();"></i></button>
           </span>
-        
+
         </div>
 
-        <!-- filtro -->
-        <div class="filter"> 
-          <select name="todoList" class="filterTodo">
-          <option value="all">Todas</option>
-          <option value="completed">Completas</option>
-          <option value="uncompleted">Incompletas</option>
-          </select>
-        </div>
 
       </div>
 
-
+      <div class="row">
+        <!-- filtro -->
+        <div class="col-lg-4 filter">
+          <select name="todoList" class="filterTodo form-control">
+            <option value="all">Todas as Tarefas</option>
+            <option value="completed">Tarefas Concluídas</option>
+            <option value="uncompleted">Tarefas a Executar</option>
+          </select>
+        </div>
+      </div>
     </header>
     <hr />
 
@@ -84,9 +85,10 @@
                     <div class="modal-body">
 
                       <label for="input-categoria" class="form-label">Criar Categoria</label>
-                      <div class="mb-3 txtCadastroCategoria input-group">                     
+                      <div class="mb-3 txtCadastroCategoria input-group">
 
-                        <input type="text" class="form-control" placeholder="Insira o nome da Categoria" maxlength="20" required />
+                        <input type="text" class="form-control" placeholder="Insira o nome da Categoria" maxlength="20"
+                          required />
 
                         <div class="input-group-append divInsertCategoria">
                           <button><i class='bx bx-check-circle'></i></button>
@@ -115,7 +117,7 @@
                 <div class="mb-3 input-group txtInputCategoria">
                   <span class="btn btn-primary input-group-text">+</span>
                   <select id="categoria" class="form-control" placeholder="Selecione a categoria" required />
-                  <option value="">Selecione a Categoria</option>                  
+                  <option value="">Selecione a Categoria</option>
                   </select>
 
 
@@ -143,22 +145,18 @@
         </div>
       </div>
 
-
-
-
     </main>
-
-
 
     <footer id="footer-trash">
       <div class="container footer">
         <div class="trash-test">
-          <button style="color: white; width: 25%; font-size: 13px;" type="button" class="btn btn-primary btLimparLista">Limpar lista</button>
+          <!--button style="color: white; width: 25%; font-size: 13px;" type="button"
+            class="btn btn-primary btLimparLista">Limpar lista</button-->
         </div>
         <div>
-          <button><i class='bx bxs-trash-alt ' ></i></button>
+          <button><i class='bx bxs-trash-alt '></i></button>
         </div>
-        
+
       </div>
     </footer>
 
