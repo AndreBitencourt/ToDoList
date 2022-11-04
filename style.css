@@ -89,7 +89,7 @@ button {
 
 .divLi span {
   width: 80%;
-  color: dimgray;
+  /*color: dimgray;*/
 }
 
 .divLi input {
@@ -225,4 +225,12 @@ input {
 select {
   border-top-right-radius: 0.375rem !important;
   border-bottom-right-radius: 0.375rem !important;
+}
+
+.texto-danger{
+  color: red !important;
+}
+
+.texto-black{
+  color: black !important;
 }

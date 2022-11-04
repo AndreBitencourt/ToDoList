@@ -77,7 +77,7 @@ btnDeleteAll.onclick = () => {
 }
 
 //Ativação do botão de edição de categorias
-btnEditCategorias.onclick = () => {  
+btnEditCategorias.onclick = () => {
   document.getElementById("modalcategoria").style.display = "block";
   //Oculto o botão salvar e o close modal tarefas
   document.getElementById("salvar").style.display = "none";
@@ -111,13 +111,13 @@ texto.onblur = () => {
 }
 
 categoria.onchange = () => {
-  categoria.style.borderColor =(categoria.value == '') ? '#dc3545' : '#00c04b';
+  categoria.style.borderColor = (categoria.value == '') ? '#dc3545' : '#00c04b';
 }
 
 hora.onblur = () => {
   hora.style.borderColor = (hora.value == '') ? '#dc3545' : '#00c04b';
 }
-    
+
 //Inserir ítem no LS
 function setItemDB() {
   if (itensDB.length >= 20) {//Limita em 20 as atividades
@@ -164,17 +164,35 @@ function loadItens() { //line-tho AQUIIIIIIIIIIIII
   })
 }
 
+const dataAtual = new Date();
+
+const horaAtual = dataAtual.getHours() + ':' + dataAtual.getMinutes();
+
+let classe = true;
+
+//console.log(typeof horaAtual);
+
 //Inserir ítem na tela
 function insertItemTela(text, categoria, hora, status, i) {
 
   const li = document.createElement('li');
 
+  if (status == '') {
+    if (horaAtual > hora) {
+      classe = 'texto-danger';
+    } else {
+      classe = 'texto-black';
+    }
+  }else{
+    classe = 'texto-black';
+  }
+
   li.innerHTML = `
-    <div class="divLi text-black" id="linha-${i}">
+    <div class="divLi ${classe}" id="linha-${i}">
       <input type="checkbox" ${status} data-i=${i} onchange="done(this, ${i});" />
-      <span data-si=${i}>${text}</span>
-      <span>${categoria}</span>
-      <span>${hora}</span>
+      <span data-si=${i} classe="${classe}">${text}</span>
+      <span classe="${classe}">${categoria}</span>
+      <span classe="${classe}">${hora}</span>
       <button onclick="editaItem(${i})" data-bs-toggle="modal" data-bs-target="#modal" data-i=${i}><i class='bx bx-edit'></i></button>
       <button onclick="removeItem(${i})" data-i=${i}><i class='bx bx-trash'></i></button>
     </div>
@@ -193,7 +211,7 @@ function insertItemTela(text, categoria, hora, status, i) {
     return ('imcompleto'); //para filtro
   }
   //texto.value = '';
-  
+
 }
 
 //Ação para filtrar as tarefas
@@ -205,7 +223,7 @@ filter.onchange = () => {
   const selecionado = select.options[select.selectedIndex].value;
   const classes = document.querySelectorAll('.line-through');
   const uls = document.querySelectorAll('ul li');
-  uls.forEach(element => {        
+  uls.forEach(element => {
     element.style.display = "block";
   });
   switch (selecionado) {
@@ -218,7 +236,7 @@ filter.onchange = () => {
     case 'completed':
       //Oculto as lis que não tem a classe
       //var obj=document.getElementById(idObj).hidden=true;
-      uls.forEach(element => {        
+      uls.forEach(element => {
         element.style.display = "none";
       });
       classes.forEach(element => {
@@ -443,12 +461,12 @@ function ativaCor(cor) {
   if (cor === 'black') {
     console.log(cor);
     element.classList.add('bg-dark');
-    element.classList.add('text-white');    
-    document.getElementById('muda-cor').style.color= 'white';
+    element.classList.add('text-white');
+    document.getElementById('muda-cor').style.color = 'white';
   } else {
     element.classList.remove('bg-dark');
     element.classList.remove('text-white');
-    document.getElementById('muda-cor').style.color= 'black';
+    document.getElementById('muda-cor').style.color = 'black';
   }
 }
 
