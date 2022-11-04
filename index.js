@@ -191,6 +191,8 @@ function insertItemTela(text, categoria, hora, status, i) {
 
 //Ação para filtrar as tarefas
 
+
+
 filter.addEventListener('click', filterToDo);
 
 function filterToDo(e) {
