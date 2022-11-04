@@ -387,9 +387,13 @@ function insertItemTelaCategorias(text, statusCategoria, i) {
   const liCategoria = document.createElement('li');
   //<input type="checkbox" ${statusCategoria} data-i=${i} onchange="doneCategoria(this, ${i});" />
   liCategoria.innerHTML = `
-    <div class="divLi">      
+    <div class="row divLi text-black">   
+    <div class="col-10">   
       <span data-si=${i}>${text}</span>
+      </div>
+      <div class="col-2"> 
       <button onclick="removeItemCategoria(${i})" data-i=${i}><i class='bx bx-trash'></i></button>
+      </div>
     </div>
     `
   ol.appendChild(liCategoria)
