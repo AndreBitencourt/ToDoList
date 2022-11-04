@@ -89,6 +89,7 @@ button {
 
 .divLi span {
   width: auto;
+  word-wrap: break-word;
 }
 
 .divLi input {
