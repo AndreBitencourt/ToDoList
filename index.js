@@ -6,7 +6,7 @@ let categoria = document.querySelector('.txtInputCategoria select');
 //hora
 let hora = document.querySelector('.txtInputHora input');
 //filtro
-let filter =document.querySelector('.filter select');
+let filter = document.querySelector('.filter select');
 
 
 
@@ -60,7 +60,7 @@ btnEditCategorias.onclick = () => {
   //Oculto o botão salvar e o close modal tarefas
   document.getElementById("salvar").style.display = "none";
   document.getElementById("close-modal-tarefa").style.display = "none";
-  document.getElementById("form").style.display = "none";  
+  document.getElementById("form").style.display = "none";
   //Carrego as categorias
   loadItensCategorias();
 }
@@ -120,8 +120,8 @@ function setItemDB() {
     return
   }
   //Adiciona um ítem ao array  
-  itensDB.push({'item': texto.value, 'categoria': categoria.value, hora: hora.value, 'status': '' });
-  console.log('Tarefa '+texto.value);
+  itensDB.push({ 'item': texto.value, 'categoria': categoria.value, hora: hora.value, 'status': '' });
+  console.log('Tarefa ' + texto.value);
   //console.log(texto.value);
   updateDB();
 }
@@ -146,6 +146,7 @@ function updateDB() {
 
 
 function loadItens() { //line-tho AQUIIIIIIIIIIIII
+  document.getElementById('todoList').value = 'all';
   ul.innerHTML = "";
   itensDB = JSON.parse(localStorage.getItem('todolist')) ?? [];
   if (itensDB.length > 0) {
@@ -180,53 +181,66 @@ function insertItemTela(text, categoria, hora, status, i) {
   if (status) {
     document.querySelector(`[data-si="${i}"]`).classList.add('line-through');
     document.getElementById(`linha-${i}`).classList.add('line-through');
-    return('completo'); //para filtro
+    return ('completo'); //para filtro
   } else {
     document.querySelector(`[data-si="${i}"]`).classList.remove('line-through');
     document.getElementById(`linha-${i}`).classList.remove('line-through');
-    return('imcompleto'); //para filtro
+    return ('imcompleto'); //para filtro
   }
   //texto.value = '';
+  
 }
 
 //Ação para filtrar as tarefas
 
 
+filter.onchange = () => {
+  var select = document.getElementById("todoList");
+  //Opção selecionada
+  const selecionado = select.options[select.selectedIndex].value;
+  const classes = document.querySelectorAll('.line-through');
+  const uls = document.querySelectorAll('ul li');
+  uls.forEach(element => {        
+    element.style.display = "block";
+  });
+  switch (selecionado) {
+    case 'all':
+      classes.forEach(element => {
+        let divAnterior = element.closest("li");
+        divAnterior.style.display = "block";
+      });
+      break;
+    case 'completed':
+      //Oculto as lis que não tem a classe
+      //var obj=document.getElementById(idObj).hidden=true;
+      uls.forEach(element => {        
+        element.style.display = "none";
+      });
+      classes.forEach(element => {
+        let divAnterior = element.closest("li");
+        divAnterior.style.display = "block";
+      });
+      break;
+    case 'uncompleted':
+      classes.forEach(element => {
+        let divAnterior = element.closest("li");
+        divAnterior.style.display = "none";
+      });
+      break;
 
-filter.addEventListener('click', filterToDo);
-
-function filterToDo(e) {
-
-  const todolist = ul.childNodes;
-  console.log(todolist);
-
-  todolist.forEach((status) => {
-    switch (e.target.value) {
-      case 'all':
-          status.style.display = 'block';
-        break;
-      case 'completed':
-        if (!status.classList.contains('completo')) {
-          status.style.display = 'block'
-        } else{
-          status.style.display = 'none';
-        }
-        break;
-      case 'uncompleted':
-        if (!status.classList.contains('incompleto')) {
-          status.style.display = 'block';
-        } else{
-          status.style.display = 'none';
-        }
-        break;
-
-      default:
-        break;
-    }
-  })
-    
+    default:
+      break;
   }
-  
+}
+
+function filtrarItens(filtro) {
+
+  filtro.forEach(element => {
+    element.style.display = "none";
+  });
+}
+
+
 
 function done(chk, i) {
 
